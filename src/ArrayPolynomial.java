@@ -88,8 +88,14 @@ public class ArrayPolynomial implements Polynomial {
     // Multiply this polynomial by a scalar
     @Override
     public void mult(double scalar) {
-        for (int i = 0; i < this.degree(); i++) {
-            coeff[i] = coeff[i] * scalar;
+        double[] blank = new double[100];
+
+        if (scalar == 0.0)
+            coeff = blank;
+        else {
+            for (int i = 0; i < this.degree(); i++) {
+                coeff[i] = coeff[i] * scalar;
+            }
         }
     }
 
