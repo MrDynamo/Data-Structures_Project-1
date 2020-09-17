@@ -145,7 +145,7 @@ public class PolynomialDriver {
 		System.out.println("The value of p at 0 is " + p.evaluate(0));
 		System.out.println("The value of p at 1.0 is " + p.evaluate(1.0));
 		System.out.println("The value of p at 2.0 is " + p.evaluate(2.5));
-		System.out.println("The value of p at -15.6 is " + p.evaluate(-15.0));	
+		System.out.println("The value of p at -15.6 is " + p.evaluate(-15.0));
 
 		// Test for mult(Polynomial)
 		// Test case M.1	
@@ -245,6 +245,7 @@ public class PolynomialDriver {
 		}
 		catch (ExponentOutOfRangeException e) {
 			System.out.println("\n" + e);
-		}	
+		}
+
 	} // main
 } // PolynomialDriver

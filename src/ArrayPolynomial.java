@@ -7,13 +7,13 @@ public class ArrayPolynomial implements Polynomial {
 
     /*** Methods ***/
 
-    // Default constructor
+    // Default constructors
     public ArrayPolynomial() {
         coeff = new double[100];
     }
 
-    public ArrayPolynomial(int size) {
-        coeff = new double[size];
+    public ArrayPolynomial(double[] coeffArray) {
+        coeff = coeffArray;
     }
 
     // Print degree of polynomial (highest index)
@@ -59,23 +59,20 @@ public class ArrayPolynomial implements Polynomial {
     // Multiply this polynomial by Polynomial p, return new polynomial with result
     @Override
     public Polynomial mult(Polynomial p) throws ExponentOutOfRangeException {
-        Polynomial result = new ArrayPolynomial(coeff.length + p.degree() - 1);
+        double[] result = new double[100];
 
-        for (int i = 0; i < coeff.length; i++) {
-            System.out.println("i = " + i);
-            for (int j = 0; j < p.degree(); j++) {
-                System.out.println("j = " + j);
-                result.setCoefficient(coeff[i] * p.getCoefficient(j),i + j);
+        for (int i = 0; i <= this.degree(); i++) {
+            for (int j = 0; j <= p.degree(); j++) {
+                result[i + j] += this.coeff[i] * p.getCoefficient(j);
             }
         }
-
-        return result;
+        return new ArrayPolynomial(result);
     }
 
     // Multiply this polynomial by a scalar
     @Override
     public void mult(double scalar) {
-        for (int i = 0; i < coeff.length; i++) {
+        for (int i = 0; i < this.degree(); i++) {
             coeff[i] = coeff[i] * scalar;
         }
     }
