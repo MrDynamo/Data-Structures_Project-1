@@ -8,6 +8,7 @@ public class ArrayPolynomial implements Polynomial {
         polyArray = new double[100];
     }
 
+    // Print degree of polynomial (highest index)
     @Override
     public int degree() {
         int deg = 0;
@@ -19,18 +20,17 @@ public class ArrayPolynomial implements Polynomial {
                 deg = i;
             }
         }
-
         return deg;
     }
 
     @Override
     public double getCoefficient(int power) throws ExponentOutOfRangeException {
-        return 0;
+        return polyArray[power];
     }
 
     @Override
     public void setCoefficient(double newCoefficient, int power) throws ExponentOutOfRangeException {
-
+        polyArray[power] = newCoefficient;
     }
 
     @Override
@@ -53,18 +53,47 @@ public class ArrayPolynomial implements Polynomial {
         return 0;
     }
 
-    // Check indexes of array, print largest index = degree
+    // Display the full polynomial with formatting
     @Override
     public void displayPolynomial() {
         String display = "", tmp = "";
+        boolean prevPositive = true;
+
+        // Add 0 degree to display
+        if (polyArray[0] != 0.0) {
+            //System.out.print("debug 1");
+            display = Double.toString(polyArray[0]);
+            if (polyArray[0] < 0.0)
+                prevPositive = false;
+        }
 
         // Loop through array and add each portion of the polynomial to the display result
-        for (int i = 0; i < polyArray.length; i++) {
+        for (int i = 1; i < polyArray.length; i++) {
+            // Continue adding to display if coefficient != 0.0
             if (polyArray[i] != 0.0) {
-                tmp = polyArray[i] + "^" + i + " ";
-            }
 
-            display = tmp + display;
+                tmp = polyArray[i] + "x^" + i + " + ";
+
+                /*
+                // If coefficient before is positive, add +
+                if (prevPositive) {
+                    //System.out.print("debug 2");
+                    tmp = polyArray[i] + "x^" + i + " + ";
+                } else
+                    // Else if negative, add -
+                    if (polyArray[i - 1] < 0.0) {
+                        //System.out.print("debug 3");
+                        tmp = polyArray[i] + "x^" + i + " - ";
+                }
+
+                if (polyArray[i] < 0.0)
+                    prevPositive = false;
+                else
+                    prevPositive = true;
+                 */
+
+                display = tmp + display;
+            }
         }
 
         // Display result if not blank, else display 0.0
