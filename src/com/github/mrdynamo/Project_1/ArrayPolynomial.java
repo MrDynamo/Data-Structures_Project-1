@@ -1,3 +1,5 @@
+package com.github.mrdynamo.Project_1;
+
 public class ArrayPolynomial implements Polynomial {
 
     /*** Class Variables ***/
