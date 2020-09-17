@@ -43,6 +43,7 @@ public class ArrayPolynomial implements Polynomial {
         coeff[power] = newCoefficient;
     }
 
+    // Add this polynomial to Polynomial p, return new polynomial with result
     @Override
     public Polynomial add(Polynomial p) {
         Polynomial result = new ArrayPolynomial();
@@ -55,12 +56,15 @@ public class ArrayPolynomial implements Polynomial {
         return result;
     }
 
+    // Multiply this polynomial by Polynomial p, return new polynomial with result
     @Override
     public Polynomial mult(Polynomial p) throws ExponentOutOfRangeException {
         Polynomial result = new ArrayPolynomial(coeff.length + p.degree() - 1);
 
         for (int i = 0; i < coeff.length; i++) {
+            System.out.println("i = " + i);
             for (int j = 0; j < p.degree(); j++) {
+                System.out.println("j = " + j);
                 result.setCoefficient(coeff[i] * p.getCoefficient(j),i + j);
             }
         }
@@ -68,6 +72,7 @@ public class ArrayPolynomial implements Polynomial {
         return result;
     }
 
+    // Multiply this polynomial by a scalar
     @Override
     public void mult(double scalar) {
         for (int i = 0; i < coeff.length; i++) {
@@ -105,8 +110,14 @@ public class ArrayPolynomial implements Polynomial {
         for (int i = 2; i < coeff.length; i++) {
             // Continue adding to display if coefficient != 0.0
             if (coeff[i] != 0.0) {
-                tmp = coeff[i] + "x^" + i + " + ";
-                display = tmp + display;
+                // If nothing has been added to display yet, remove the + from the end of display
+                if (display.isBlank())
+                    display = coeff[i] + "x^" + i;
+                else {
+                    // Else add to display normally
+                    tmp = coeff[i] + "x^" + i + " + ";
+                    display = tmp + display;
+                }
             }
         }
 
