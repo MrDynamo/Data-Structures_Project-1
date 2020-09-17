@@ -1,5 +1,7 @@
 public class ArrayPolynomial implements Polynomial {
 
+    // Github test
+
     // Initialize array to size 100
     private double[] polyArray = new double[100];
 
