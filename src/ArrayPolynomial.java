@@ -99,9 +99,16 @@ public class ArrayPolynomial implements Polynomial {
         }
     }
 
+    // Evaluate the polynomial at x using Horner's method
     @Override
     public double evaluate(double x) {
-        return 0;
+        double result = 0.0;
+
+        for (int i = 1; i < coeff.length; i++) {
+            result += coeff[i] * Math.pow(x, i);
+        }
+
+        return result;
     }
 
     // Display the full polynomial with formatting
