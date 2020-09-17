@@ -4,7 +4,7 @@ public class ArrayPolynomial implements Polynomial {
 
     /*** Class Variables ***/
 
-    // Declare new array to initalize later
+    // Declare new array to initialize later
     private double[] coeff;
 
     /*** Class Methods ***/
@@ -14,7 +14,7 @@ public class ArrayPolynomial implements Polynomial {
         coeff = new double[100];
     }
 
-    // Constructor for usage in mult(Polynomial) function
+    // Constructor for usage in mu-lt(Polynomial) function
     public ArrayPolynomial(double[] coeffArray) {
         coeff = coeffArray;
     }
