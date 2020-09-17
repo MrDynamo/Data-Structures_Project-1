@@ -3,13 +3,17 @@ public class ArrayPolynomial implements Polynomial {
     /*** Variables ***/
 
     // Initialize array to size 100
-    private double[] polyArray;
+    private double[] coeff;
 
     /*** Methods ***/
 
     // Default constructor
     public ArrayPolynomial() {
-        polyArray = new double[100];
+        coeff = new double[100];
+    }
+
+    public ArrayPolynomial(int size) {
+        coeff = new double[size];
     }
 
     // Print degree of polynomial (highest index)
@@ -18,9 +22,9 @@ public class ArrayPolynomial implements Polynomial {
         int deg = 0;
 
         // Iterate through array
-        for (int i = 0; i < polyArray.length; i++) {
+        for (int i = 0; i < coeff.length; i++) {
             // If number at index != 0, set degree to highest index
-            if (polyArray[i] != 0.0) {
+            if (coeff[i] != 0.0) {
                 deg = i;
             }
         }
@@ -30,21 +34,22 @@ public class ArrayPolynomial implements Polynomial {
     // Return coefficient of given power
     @Override
     public double getCoefficient(int power) throws ExponentOutOfRangeException {
-        return polyArray[power];
+        return coeff[power];
     }
 
     // Set coefficient of given power
     @Override
     public void setCoefficient(double newCoefficient, int power) throws ExponentOutOfRangeException {
-        polyArray[power] = newCoefficient;
+        coeff[power] = newCoefficient;
     }
 
     @Override
-    public Polynomial add(Polynomial poly) {
+    public Polynomial add(Polynomial p) {
         Polynomial result = new ArrayPolynomial();
 
-        for (int i = 0; i < polyArray.length; i++) {
-            result.setCoefficient(polyArray[i] + poly.getCoefficient(i), i);
+        for (int i = 0; i < coeff.length; i++) {
+            result.setCoefficient(coeff[i] + p.getCoefficient(i), i);
+            result.setCoefficient(coeff[i] + p.getCoefficient(i), i);
         }
 
         return result;
@@ -52,12 +57,22 @@ public class ArrayPolynomial implements Polynomial {
 
     @Override
     public Polynomial mult(Polynomial p) throws ExponentOutOfRangeException {
-        return null;
+        Polynomial result = new ArrayPolynomial(coeff.length + p.degree() - 1);
+
+        for (int i = 0; i < coeff.length; i++) {
+            for (int j = 0; j < p.degree(); j++) {
+                result.setCoefficient(coeff[i] * p.getCoefficient(j),i + j);
+            }
+        }
+
+        return result;
     }
 
     @Override
     public void mult(double scalar) {
-
+        for (int i = 0; i < coeff.length; i++) {
+            coeff[i] = coeff[i] * scalar;
+        }
     }
 
     @Override
@@ -71,26 +86,26 @@ public class ArrayPolynomial implements Polynomial {
         String display = "", tmp = "";
 
         // Add 0 degree to display
-        if (polyArray[0] != 0.0) {
+        if (coeff[0] != 0.0) {
             //System.out.print("debug 1");
-            display = Double.toString(polyArray[0]);
+            display = Double.toString(coeff[0]);
         }
 
         // Add 1 degree to display
-        if (polyArray[1] != 0.0) {
-            if (polyArray[0] == 0.0)
-                display = polyArray[1] + "x^1";
+        if (coeff[1] != 0.0) {
+            if (coeff[0] == 0.0)
+                display = coeff[1] + "x^1";
             else {
-                tmp = polyArray[1] + "x^1 + ";
+                tmp = coeff[1] + "x^1 + ";
                 display = tmp + display;
             }
         }
 
         // Loop through array and add each portion of the polynomial to the display result
-        for (int i = 2; i < polyArray.length; i++) {
+        for (int i = 2; i < coeff.length; i++) {
             // Continue adding to display if coefficient != 0.0
-            if (polyArray[i] != 0.0) {
-                tmp = polyArray[i] + "x^" + i + " + ";
+            if (coeff[i] != 0.0) {
+                tmp = coeff[i] + "x^" + i + " + ";
                 display = tmp + display;
             }
         }
