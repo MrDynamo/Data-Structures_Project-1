@@ -16,6 +16,12 @@ public class ArrayPolynomial implements Polynomial {
         coeff = coeffArray;
     }
 
+    // Returns an instance of the coefficient array
+    public double[] getCoeffArray(Polynomial p) {
+        double[] coeffArr = this.coeff;
+        return coeffArr;
+    }
+
     // Print degree of polynomial (highest index)
     @Override
     public int degree() {
@@ -34,13 +40,19 @@ public class ArrayPolynomial implements Polynomial {
     // Return coefficient of given power
     @Override
     public double getCoefficient(int power) throws ExponentOutOfRangeException {
-        return coeff[power];
+        if (power > 100)
+            throw new ExponentOutOfRangeException("Maximum power cannot exceed 100");
+        else
+            return coeff[power];
     }
 
     // Set coefficient of given power
     @Override
     public void setCoefficient(double newCoefficient, int power) throws ExponentOutOfRangeException {
-        coeff[power] = newCoefficient;
+        if (power > 100)
+            throw new ExponentOutOfRangeException("Maximum power cannot exceed 100");
+        else
+            coeff[power] = newCoefficient;
     }
 
     // Add this polynomial to Polynomial p, return new polynomial with result
@@ -61,12 +73,16 @@ public class ArrayPolynomial implements Polynomial {
     public Polynomial mult(Polynomial p) throws ExponentOutOfRangeException {
         double[] result = new double[100];
 
-        for (int i = 0; i <= this.degree(); i++) {
-            for (int j = 0; j <= p.degree(); j++) {
-                result[i + j] += this.coeff[i] * p.getCoefficient(j);
+        if (this.degree() + p.degree() > 100)
+            throw new ExponentOutOfRangeException("Maximum power cannot exceed 100");
+        else {
+            for (int i = 0; i <= this.degree(); i++) {
+                for (int j = 0; j <= p.degree(); j++) {
+                    result[i + j] += this.coeff[i] * p.getCoefficient(j);
+                }
             }
+            return new ArrayPolynomial(result);
         }
-        return new ArrayPolynomial(result);
     }
 
     // Multiply this polynomial by a scalar
