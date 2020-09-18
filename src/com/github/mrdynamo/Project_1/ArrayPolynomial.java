@@ -169,4 +169,5 @@ public class ArrayPolynomial implements Polynomial {
             System.out.println("0.0");
 
     }
+
 }
