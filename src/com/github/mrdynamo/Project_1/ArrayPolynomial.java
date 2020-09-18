@@ -14,7 +14,7 @@ public class ArrayPolynomial implements Polynomial {
         coeff = new double[100];
     }
 
-    // Constructor for usage in mu-lt(Polynomial) function
+    // Constructor for usage in mult(Polynomial) function
     public ArrayPolynomial(double[] coeffArray) {
         coeff = coeffArray;
     }
